@@ -1,33 +1,41 @@
-
 /* ==================================
    BAVANI BIRTHDAY WEBSITE
-   FULL UPDATED SCRIPT.JS
+   FINAL COMPLETE SCRIPT
 ================================== */
 
-// IMPORTANT SETTINGS
+
+// SETTINGS
+
 const PASSWORD = "1204";
 
-const BIRTHDAY = new Date("2026-12-04T00:00:00+05:30");
+const BIRTHDAY = new Date(
+  "2026-12-04T00:00:00+05:30"
+);
 
-// true = Test all pages before birthday
-// false = Real birthday countdown lock
+// true = Test website now
+// false = Birthday countdown lock
 const TEST_MODE = true;
 
 
 // GLOBAL VARIABLES
+
 let currentPage = 1;
 let pin = "";
+
 let musicStarted = false;
+
 let scratchDone = false;
 let canvas = null;
 let ctx = null;
 let drawing = false;
+
 let typingStarted = false;
 
+let openedMessages = new Set();
 
-// ELEMENTS
 const pages = document.querySelectorAll(".page");
 const progressDots = document.querySelectorAll(".progress span");
+
 const bgMusic = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicBtn");
 
@@ -39,16 +47,23 @@ const musicBtn = document.getElementById("musicBtn");
 const particles = document.getElementById("particles");
 
 for (let i = 0; i < 75; i++) {
+
   const star = document.createElement("span");
 
   star.className = "star";
   star.textContent = "✦";
+
   star.style.left = Math.random() * 100 + "%";
   star.style.top = Math.random() * 100 + "%";
-  star.style.fontSize = (Math.random() * 10 + 5) + "px";
-  star.style.animationDelay = Math.random() * 3 + "s";
+
+  star.style.fontSize =
+    (Math.random() * 10 + 5) + "px";
+
+  star.style.animationDelay =
+    Math.random() * 3 + "s";
 
   particles.appendChild(star);
+
 }
 
 
@@ -59,16 +74,28 @@ for (let i = 0; i < 75; i++) {
 const petals = document.getElementById("petals");
 
 for (let i = 0; i < 20; i++) {
+
   const petal = document.createElement("span");
 
   petal.className = "petal";
-  petal.textContent = ["🌸", "🌹", "✨", "💗"][i % 4];
-  petal.style.left = Math.random() * 100 + "%";
-  petal.style.animationDuration = (7 + Math.random() * 9) + "s";
-  petal.style.animationDelay = Math.random() * 8 + "s";
-  petal.style.fontSize = (12 + Math.random() * 13) + "px";
+
+  petal.textContent =
+    ["🌸", "🌹", "✨", "💗"][i % 4];
+
+  petal.style.left =
+    Math.random() * 100 + "%";
+
+  petal.style.animationDuration =
+    (7 + Math.random() * 9) + "s";
+
+  petal.style.animationDelay =
+    Math.random() * 8 + "s";
+
+  petal.style.fontSize =
+    (12 + Math.random() * 13) + "px";
 
   petals.appendChild(petal);
+
 }
 
 
@@ -77,10 +104,13 @@ for (let i = 0; i < 20; i++) {
 // ==================================
 
 async function startMusic() {
+
   try {
+
     await bgMusic.play();
 
     musicStarted = true;
+
     musicBtn.textContent = "🎵 Music: ON";
 
   } catch (error) {
@@ -88,15 +118,23 @@ async function startMusic() {
     musicBtn.textContent = "🎵 TAP FOR MUSIC";
 
   }
+
 }
 
 
 // Browser autoplay restrictions
-document.addEventListener("click", function firstClick() {
-  if (!musicStarted) {
-    startMusic();
-  }
-}, { once: true });
+
+document.addEventListener(
+  "click",
+  function firstClick() {
+
+    if (!musicStarted) {
+      startMusic();
+    }
+
+  },
+  { once: true }
+);
 
 
 musicBtn.addEventListener("click", async () => {
@@ -108,7 +146,9 @@ musicBtn.addEventListener("click", async () => {
   } else {
 
     bgMusic.pause();
+
     musicStarted = false;
+
     musicBtn.textContent = "🎵 Music: OFF";
 
   }
@@ -124,29 +164,36 @@ function updateCountdown() {
 
   const now = new Date();
 
-  const diff = BIRTHDAY.getTime() - now.getTime();
+  const diff =
+    BIRTHDAY.getTime() - now.getTime();
 
-  const continueButton = document.getElementById("countContinue");
-  const countNote = document.getElementById("countNote");
+  const continueButton =
+    document.getElementById("countContinue");
 
-  // Birthday reached
+  const countNote =
+    document.getElementById("countNote");
+
+
   if (diff <= 0) {
 
     ["days", "hours", "minutes", "seconds"].forEach(id => {
+
       document.getElementById(id).textContent = "00";
+
     });
 
     countNote.textContent =
       "It's your special day! Happy Birthday, Bavani! 🎂💖";
 
     continueButton.disabled = false;
+
     continueButton.textContent = "CONTINUE ✨";
 
     return;
+
   }
 
 
-  // Birthday not reached
   const days = Math.floor(diff / 86400000);
 
   const hours = Math.floor(
@@ -178,15 +225,19 @@ function updateCountdown() {
   if (TEST_MODE) {
 
     continueButton.disabled = false;
-    continueButton.textContent = "TEST NEXT PAGE 🧪";
+
+    continueButton.textContent =
+      "TEST NEXT PAGE 🧪";
 
     countNote.textContent =
-      "Test Mode ON - You can preview your surprise 💗";
+      "Test Mode ON - Preview your surprise 💗";
 
   } else {
 
     continueButton.disabled = true;
-    continueButton.textContent = "PLEASE WAIT ✨";
+
+    continueButton.textContent =
+      "PLEASE WAIT ✨";
 
     countNote.textContent =
       "Counting down to your special moment ♡";
@@ -246,19 +297,38 @@ function showPage(number) {
 }
 
 
-// NEXT PAGE WITH COUNTDOWN LOCK
+// NEXT PAGE
 
 function nextPage() {
 
-  // Page 2 = Countdown
+  // Countdown lock
+
   if (currentPage === 2) {
 
-    const birthdayReached = new Date() >= BIRTHDAY;
+    const birthdayReached =
+      new Date() >= BIRTHDAY;
 
     if (!birthdayReached && !TEST_MODE) {
 
       alert(
         "Your surprise unlocks on 4 December 2026 at 12:00 AM 💗"
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  // 26 messages lock
+
+  if (currentPage === 4) {
+
+    if (openedMessages.size !== 26) {
+
+      alert(
+        "Please open all 26 messages first! 💌"
       );
 
       return;
@@ -277,11 +347,12 @@ function nextPage() {
 }
 
 
-// RESTART WEBSITE
+// RESTART
 
 function restart() {
 
   pin = "";
+
   updatePinDisplay();
 
   showPage(1);
@@ -290,7 +361,7 @@ function restart() {
 
 
 // ==================================
-// PASSWORD / PIN SYSTEM
+// PASSWORD SYSTEM
 // ==================================
 
 function addPin(number) {
@@ -340,7 +411,8 @@ function updatePinDisplay() {
 
 function checkPin() {
 
-  const message = document.getElementById("pinMessage");
+  const message =
+    document.getElementById("pinMessage");
 
   if (pin === PASSWORD) {
 
@@ -368,7 +440,7 @@ function checkPin() {
 
 
 // ==================================
-// 26 ALPHABET CARDS
+// 26 ALPHABET MESSAGES
 // ==================================
 
 const messages = [
@@ -403,7 +475,25 @@ const messages = [
 ];
 
 
-const letters = document.getElementById("letters");
+const letters =
+  document.getElementById("letters");
+
+const lettersNextButton =
+  document.getElementById("lettersNext");
+
+const letterStatus =
+  document.getElementById("letterStatus");
+
+
+// Initially locked
+
+lettersNextButton.disabled = true;
+
+lettersNextButton.textContent =
+  "OPEN ALL 26 MESSAGES 💌";
+
+
+// CREATE CARDS
 
 messages.forEach((message, index) => {
 
@@ -411,7 +501,8 @@ messages.forEach((message, index) => {
 
   card.className = "letter-card";
 
-  const letter = String.fromCharCode(65 + index);
+  const letter =
+    String.fromCharCode(65 + index);
 
   card.textContent = letter;
 
@@ -423,33 +514,58 @@ messages.forEach((message, index) => {
 
   function flip() {
 
-    card.classList.toggle("flipped");
+    const isFlipped =
+      card.classList.toggle("flipped");
 
-    card.textContent = card.classList.contains("flipped")
-      ? message
-      : letter;
+
+    if (isFlipped) {
+
+      card.textContent = message;
+
+      // Count this message only once
+
+      openedMessages.add(index);
+
+      card.style.boxShadow =
+        "0 0 25px #ffd18b, 0 0 35px #ff58da";
+
+      checkAllMessages();
+
+    } else {
+
+      card.textContent = letter;
+
+    }
 
   }
 
 
   // Desktop double click
+
   card.addEventListener("dblclick", flip);
 
 
   // Mobile double tap
+
   let lastTap = 0;
 
-  card.addEventListener("touchend", () => {
+  card.addEventListener("touchend", (event) => {
 
     const now = Date.now();
 
     if (now - lastTap < 350) {
 
+      event.preventDefault();
+
       flip();
 
-    }
+      lastTap = 0;
 
-    lastTap = now;
+    } else {
+
+      lastTap = now;
+
+    }
 
   });
 
@@ -459,13 +575,45 @@ messages.forEach((message, index) => {
 });
 
 
+// CHECK ALL 26 MESSAGES
+
+function checkAllMessages() {
+
+  const count = openedMessages.size;
+
+  letterStatus.textContent =
+    `Opened: ${count} / 26 💗`;
+
+
+  if (count === 26) {
+
+    lettersNextButton.disabled = false;
+
+    lettersNextButton.textContent =
+      "ALL 26 OPENED! NEXT ✨";
+
+    sparkle();
+
+  } else {
+
+    lettersNextButton.disabled = true;
+
+    lettersNextButton.textContent =
+      `OPENED ${count}/26 💌`;
+
+  }
+
+}
+
+
 // ==================================
 // GIFT BOX
 // ==================================
 
 function openGift() {
 
-  document.getElementById("bigGift").textContent = "💝";
+  document.getElementById("bigGift").textContent =
+    "💝";
 
   document
     .getElementById("giftMessage")
@@ -484,21 +632,28 @@ function setupScratch() {
 
   if (scratchDone || canvas) return;
 
-  canvas = document.getElementById("scratchCanvas");
+  canvas =
+    document.getElementById("scratchCanvas");
 
   ctx = canvas.getContext("2d");
 
-  const rect = canvas.getBoundingClientRect();
 
-  const ratio = window.devicePixelRatio || 1;
+  const rect =
+    canvas.getBoundingClientRect();
+
+  const ratio =
+    window.devicePixelRatio || 1;
+
 
   canvas.width = rect.width * ratio;
+
   canvas.height = rect.height * ratio;
 
   ctx.scale(ratio, ratio);
 
 
   // Scratch cover
+
   ctx.fillStyle = "#b6a0b9";
 
   ctx.fillRect(
@@ -531,19 +686,8 @@ function setupScratch() {
   );
 
 
-  ctx.globalCompositeOperation = "destination-out";
-
-
-  function getPosition(e) {
-
-    const bounds = canvas.getBoundingClientRect();
-
-    return {
-      x: e.clientX - bounds.left,
-      y: e.clientY - bounds.top
-    };
-
-  }
+  ctx.globalCompositeOperation =
+    "destination-out";
 
 
   function scratch(e) {
@@ -552,7 +696,14 @@ function setupScratch() {
 
     e.preventDefault();
 
-    const pos = getPosition(e);
+    const bounds =
+      canvas.getBoundingClientRect();
+
+    const pos = {
+      x: e.clientX - bounds.left,
+      y: e.clientY - bounds.top
+    };
+
 
     ctx.beginPath();
 
@@ -602,7 +753,7 @@ function setupScratch() {
 
 
 // ==================================
-// CHECK SCRATCH PERCENTAGE
+// SCRATCH PERCENTAGE
 // ==================================
 
 function checkScratch() {
@@ -615,6 +766,7 @@ function checkScratch() {
   );
 
   let cleared = 0;
+
 
   for (
     let i = 3;
@@ -631,21 +783,25 @@ function checkScratch() {
   }
 
 
-  const total = imageData.data.length / 4;
+  const total =
+    imageData.data.length / 4;
 
-  const percentage = (cleared / total) * 100;
+  const percentage =
+    (cleared / total) * 100;
 
 
   document.getElementById("scratchStatus").textContent =
     `Scratched: ${Math.floor(percentage)}% 💗`;
 
 
-  // 80% reveal
+  // Reveal at 80%
+
   if (percentage >= 80 && !scratchDone) {
 
     scratchDone = true;
 
-    canvas.style.transition = "opacity 1s";
+    canvas.style.transition =
+      "opacity 1s";
 
     canvas.style.opacity = "0";
 
@@ -682,15 +838,18 @@ function sparkle() {
 
   for (let i = 0; i < 35; i++) {
 
-    const star = document.createElement("span");
+    const star =
+      document.createElement("span");
 
     star.textContent = "✨";
 
     star.style.position = "fixed";
 
-    star.style.left = Math.random() * 100 + "vw";
+    star.style.left =
+      Math.random() * 100 + "vw";
 
-    star.style.top = Math.random() * 100 + "vh";
+    star.style.top =
+      Math.random() * 100 + "vh";
 
     star.style.zIndex = "20";
 
@@ -735,7 +894,8 @@ function startTyping() {
 
   typingStarted = true;
 
-  const target = document.getElementById("typedMessage");
+  const target =
+    document.getElementById("typedMessage");
 
   let index = 0;
 
@@ -744,7 +904,8 @@ function startTyping() {
 
     if (index < birthdayMessage.length) {
 
-      target.textContent += birthdayMessage[index];
+      target.textContent +=
+        birthdayMessage[index];
 
       index++;
 
@@ -764,16 +925,19 @@ function startTyping() {
 // FORMSPREE REPLY FORM
 // ==================================
 
-const replyForm = document.getElementById("replyForm");
+const replyForm =
+  document.getElementById("replyForm");
 
 
 replyForm.addEventListener("submit", async (e) => {
 
   e.preventDefault();
 
-  const status = document.getElementById("formStatus");
+  const status =
+    document.getElementById("formStatus");
 
-  const button = replyForm.querySelector("button");
+  const button =
+    replyForm.querySelector("button");
 
 
   button.disabled = true;
@@ -819,7 +983,8 @@ replyForm.addEventListener("submit", async (e) => {
 
   button.disabled = false;
 
-  button.textContent = "SEND YOUR REPLY 💗";
+  button.textContent =
+    "SEND YOUR REPLY 💗";
 
 });
 
@@ -828,7 +993,7 @@ replyForm.addEventListener("submit", async (e) => {
 // INITIALIZE WEBSITE
 // ==================================
 
-showPage(1);
-
 updateCountdown();
-  
+
+showPage(1);
+     
