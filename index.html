@@ -1,733 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Bavani ❤️</title>
-
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;
- min-height:100vh;
- color:white;
- font-family:Georgia,serif;
- background:
- radial-gradient(ellipse at 20% 15%,#39205e,transparent 42%),
- radial-gradient(ellipse at 85% 75%,#4b173f,transparent 38%),
- linear-gradient(135deg,#080611,#160d2b,#090713);
- text-align:center;
- overflow-x:hidden;
-}
-body:before{
- content:"";
- position:fixed;inset:0;pointer-events:none;
- background-image:radial-gradient(2px 2px at 20px 30px,#fff 50%,transparent);
- background-size:100px 100px;
- animation:twinkle 3s infinite alternate;
-}
-@keyframes twinkle{to{opacity:.3}}
-main{max-width:850px;margin:auto;padding:25px 12px;position:relative}
-.page{
- display:none;
- min-height:85vh;
- align-items:center;
- justify-content:center;
- flex-direction:column;
- animation:fade .7s;
-}
-.page.active{display:flex}
-@keyframes fade{
- from{opacity:0;transform:translateY(15px)}
- to{opacity:1;transform:none}
-}
-.panel{
- width:100%;
- padding:35px 20px;
- border:1px solid #ffb9e888;
- border-radius:25px;
- background:rgba(29,15,55,.88);
- box-shadow:0 0 30px #d57cff33;
-}
-h1{
- font-size:clamp(30px,7vw,55px);
- text-shadow:0 0 20px #ff75b8;
-}
-h2{color:#ffd77a}
-p{line-height:1.7;color:#e9dff7}
-.gold{color:#ffd77a}
-button{
- border:0;border-radius:40px;
- padding:14px 25px;
- background:linear-gradient(110deg,#ffe69a,#ffb7c9);
- color:#381b3d;font-weight:bold;
- cursor:pointer;margin:8px;
- box-shadow:0 0 18px #ffca83;
-}
-button:hover{transform:scale(1.04)}
-.secondary{
- background:#ffffff18;
- color:white;border:1px solid #d7b9ff;
- box-shadow:none;
-}
-.gift{font-size:90px;animation:float 2s infinite}
-@keyframes float{50%{transform:translateY(-12px)}}
-.countdown{
- display:flex;gap:10px;
- justify-content:center;flex-wrap:wrap;
- margin:25px 0;
-}
-.time{
- padding:15px;
- min-width:75px;
- background:#ffffff12;
- border:1px solid #d9b9ff66;
- border-radius:15px;
-}
-.time strong{
- display:block;font-size:30px;color:#ffd77a;
-}
-.time small{font-size:11px}
-.pin{
- display:flex;justify-content:center;gap:12px;
- margin:25px;
-}
-.pin span{
- width:45px;height:45px;
- border:1px solid #d5b7ff;
- border-radius:50%;
- display:grid;place-items:center;
-}
-.keypad{
- display:grid;
- grid-template-columns:repeat(3,65px);
- justify-content:center;gap:9px;
-}
-.keypad button{
- background:#ffffff15;
- color:white;
- border:1px solid #d6b9ff66;
- box-shadow:none;
-}
-.cards{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:10px;margin-top:20px;
-}
-.flip{
- height:135px;
- perspective:900px;
- cursor:pointer;
-}
-.inner{
- width:100%;height:100%;
- position:relative;
- transform-style:preserve-3d;
- transition:transform .6s;
-}
-.flip.open .inner{transform:rotateY(180deg)}
-.face{
- position:absolute;inset:0;
- border-radius:15px;
- display:flex;align-items:center;
- justify-content:center;
- padding:10px;
- backface-visibility:hidden;
- border:1px solid #ffb9dc;
- background:linear-gradient(145deg,#54275e,#211638);
-}
-.front{font-size:24px;color:#ffd77a}
-.back{
- transform:rotateY(180deg);
- font:12px/1.4 Arial;
- background:#63305f;
-}
-.box{
- font-size:90px;
- filter:drop-shadow(0 0 20px #ffbd74);
-}
-.scratch-wrap{
- position:relative;
- height:260px;
- max-width:430px;
- margin:20px auto;
- overflow:hidden;
- border-radius:20px;
- background:#241438;
-}
-#giftPhoto{
- width:100%;height:100%;object-fit:cover;
-}
-#scratch{
- position:absolute;inset:0;
- width:100%;height:100%;
- touch-action:none;
-}
-#scratch.hidden{display:none}
-.typewriter{
- min-height:190px;
- white-space:pre-wrap;
- text-align:left;
- font:16px/1.9 Arial;
-}
-input,textarea{
- width:100%;padding:14px;
- margin:8px 0;
- border-radius:12px;
- border:1px solid #d5b7ff;
- background:#ffffff10;
- color:white;
- font-size:16px;
-}
-textarea{height:130px}
-footer{padding:20px;color:#bda9d5;font-size:12px}
-@media(max-width:450px){
- .panel{padding:25px 12px}
- .flip{height:125px}
- .back{font-size:11px}
-}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#170912">
+<title>For Bavani ♥</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 </head>
-
 <body>
-<main>
+<div class="ambient"><div class="stars"></div><div id="floatingHearts"></div></div>
+<main class="shell">
+<nav class="dots" id="progressDots"></nav>
 
-<div id="progress">✨ ✨ ✨ ✨ ✨ ✨ ✨ ✨</div>
+<section class="page active" id="page1"><div class="panel hero">
+<p class="eyebrow">A little universe made just for you</p><div class="rose">🌹</div>
+<p class="eyebrow">A SPECIAL SURPRISE FOR</p><h1>BAVANI</h1>
+<p>Some gifts are wrapped in paper. This one is wrapped in memories, smiles and love.</p>
+<button class="gold" data-go="2">OPEN YOUR GIFT ✦</button>
+</div></section>
 
-<!-- PAGE 1 -->
-<section class="page active" id="page1">
-<div class="panel">
-<p> A LITTLE UNIVERSE MADE FOR YOU </p>
-<div class="gift">🎁</div>
-<h1>For <span class="gold">BAVANI</span></h1>
-<p>Some gifts are wrapped in paper. This one is wrapped in little moments, smiles and love.</p>
-<button onclick="go(2)">OPEN YOUR GIFT ✨</button>
-</div>
-</section>
-
-<!-- PAGE 2 -->
-<section class="page" id="page2">
-<div class="panel">
-<h1>Almost Time Bavani ✨</h1>
-<p>Your birthday surprise unlocks at midnight!</p>
-
+<section class="page" id="page2"><div class="panel">
+<p class="eyebrow">The magic moment is getting closer</p><h2>Almost time, Bavani ✨</h2>
+<p>Your birthday surprise unlocks at midnight on <b>4 December 2026</b>.</p>
 <div class="countdown">
-<div class="time"><strong id="days">00</strong><small>DAYS</small></div>
-<div class="time"><strong id="hours">00</strong><small>HOURS</small></div>
-<div class="time"><strong id="mins">00</strong><small>MINUTES</small></div>
-<div class="time"><strong id="secs">00</strong><small>SECONDS</small></div>
+<div><strong id="days">00</strong><small>DAYS</small></div><div><strong id="hours">00</strong><small>HOURS</small></div>
+<div><strong id="minutes">00</strong><small>MINUTES</small></div><div><strong id="seconds">00</strong><small>SECONDS</small></div>
 </div>
+<p id="countdownStatus">Counting down to 12:00 AM India time.</p>
+<button class="gold" id="countdownContinue" data-go="3" disabled>CONTINUE</button>
+<button class="outline" id="testModeButton" aria-pressed="false">TEST MODE: OFF</button>
+<p class="hint" id="testModeHelp">Turn on Test Mode to preview the pages before the birthday.</p>
+</div></section>
 
-<p id="status">Waiting for 12:00 AM</p>
-
-<button id="continueBtn" onclick="go(3)" disabled>CONTINUE</button>
-<button class="secondary" onclick="testMode()">TEST MODE: OFF</button>
-<p id="testInfo">Enable test mode to preview the website.</p>
-</div>
-</section>
-
-<!-- PAGE 3 -->
-<section class="page" id="page3">
-<div class="panel">
-<div class="gift">🪐</div>
-<h2>Wait, Mea Kutty... One Little Secret! 💗</h2>
-<p>Only someone special knows the magic number!</p>
-
-<div class="pin" id="dots">
-<span>○</span><span>○</span><span>○</span><span>○</span>
-</div>
-
+<section class="page" id="page3"><div class="panel password">
+<p class="eyebrow">A tiny secret between us</p><div class="orbit">✧</div>
+<h2>Wait, Mea Kutty...<br>One Little Secret! 💗</h2>
+<p>Only someone special knows the magic number to unlock this universe.</p>
+<div class="pin" id="pinDots"><span>○</span><span>○</span><span>○</span><span>○</span></div>
 <div class="keypad">
-<button onclick="digit('1')">1</button>
-<button onclick="digit('2')">2</button>
-<button onclick="digit('3')">3</button>
-<button onclick="digit('4')">4</button>
-<button onclick="digit('5')">5</button>
-<button onclick="digit('6')">6</button>
-<button onclick="digit('7')">7</button>
-<button onclick="digit('8')">8</button>
-<button onclick="digit('9')">9</button>
-<button onclick="clearPin()">C</button>
-<button onclick="digit('0')">0</button>
-<button onclick="backPin()">⌫</button>
+<button data-digit="1">1</button><button data-digit="2">2</button><button data-digit="3">3</button>
+<button data-digit="4">4</button><button data-digit="5">5</button><button data-digit="6">6</button>
+<button data-digit="7">7</button><button data-digit="8">8</button><button data-digit="9">9</button>
+<button data-action="clear">C</button><button data-digit="0">0</button><button data-action="backspace">⌫</button>
 </div>
+<p class="error" id="passwordError"></p><button class="gold" id="unlockButton">UNLOCK ♥</button>
+</div></section>
 
-<p id="error"></p>
-<button onclick="unlock()">UNLOCK 🔐</button>
+<section class="page" id="page4"><div class="panel wide">
+<p class="eyebrow">26 little letters, 26 little messages</p><h2>From A to Z, with love 💌</h2>
+<p>Double-tap a letter card to flip it and read its message.</p>
+<div class="alphabet" id="alphabetGrid"></div>
+<p class="hint">Every letter has a little wish for you. ♥</p>
+<button class="gold" data-go="5">NEXT SURPRISE →</button>
+</div></section>
+
+<section class="page" id="page5"><div class="panel">
+<p class="eyebrow">A present from my heart</p><h2>One more little thing...</h2>
+<div class="present" id="presentBox">🎁</div>
+<p id="boxMessage">There is something special inside this box. Are you ready?</p>
+<button class="gold" id="openBoxButton">OPEN THE BOX</button>
+</div></section>
+
+<section class="page" id="page6"><div class="panel">
+<p class="eyebrow">A hidden surprise</p><h2>Scratch to reveal your gift ✨</h2>
+<p>Scratch with your finger or mouse. Your photo appears after 80% is scratched!</p>
+<div class="scratch-frame" id="scratchFrame">
+<img id="giftPhoto" src="gift.jpg" alt="Bavani's surprise gift">
+<canvas id="scratchCanvas"></canvas>
+<div class="scratch-loading" id="scratchLoading">Add your gift.jpg photo to this folder</div>
+<div id="scratchSparkles"></div>
 </div>
-</section>
+<div class="track"><div id="scratchProgressBar"></div></div>
+<p id="scratchStatus">Scratched: 0% · 80% needed</p>
+<button class="gold" data-go="7">NEXT →</button>
+</div></section>
 
-<!-- PAGE 4 -->
-<section class="page" id="page4">
-<div class="panel">
-<h2>26 Little Reasons To Smile 💌</h2>
-<p>Double tap a card to turn it and read your message.</p>
-<div class="cards" id="cards"></div>
-<button onclick="go(5)">NEXT SURPRISE →</button>
-</div>
-</section>
+<section class="page" id="page7"><div class="panel">
+<p class="eyebrow">Just one more thing</p><h2>For you, Bavani 💖</h2>
+<div class="typewriter" id="typedMessage"></div>
+<button class="outline" id="replayTyping">READ AGAIN ↻</button>
+<button class="gold" data-go="8">I HAVE SOMETHING TO SAY →</button>
+</div></section>
 
-<!-- PAGE 5 -->
-<section class="page" id="page5">
-<div class="panel">
-<h2>One More Little Thing...</h2>
-<div class="box" id="box">🎁</div>
-<p id="boxMessage">A special message is waiting inside!</p>
-<button id="boxBtn" onclick="openBox()">OPEN THE BOX</button>
-</div>
-</section>
-
-<!-- PAGE 6 -->
-<section class="page" id="page6">
-<div class="panel">
-<h2>Scratch To Reveal Your Gift ✨</h2>
-<p>Use your finger to scratch and reveal the surprise.</p>
-
-<div class="scratch-wrap">
-<img id="giftPhoto" src="gift.jpg"
-alt="Birthday gift"
-onerror="this.style.display='none'">
-<canvas id="scratch"></canvas>
-</div>
-
-<p id="scratchInfo">Scratch to reveal your gift!</p>
-<button onclick="go(7)">NEXT →</button>
-</div>
-</section>
-
-<!-- PAGE 7 -->
-<section class="page" id="page7">
-<div class="panel">
-<h2>For You Bavani 💖</h2>
-<div class="typewriter" id="typing"></div>
-<button class="secondary" onclick="startTyping()">READ AGAIN ↻</button>
-<button onclick="go(8)">I HAVE SOMETHING TO SAY →</button>
-</div>
-</section>
-
-<!-- PAGE 8 -->
-<section class="page" id="page8">
-<div class="panel">
-<h2>Your Turn 💌</h2>
-<p>Tell me what's in your heart.</p>
-
-<form action="https://formspree.io/f/xzepljrz" method="POST">
-<input name="name" value="Bavani" placeholder="Your name" required>
-
-<textarea name="message"
-placeholder="Write your reply here..."
-required></textarea>
-
-<input type="hidden" name="_subject"
-value="Bavani Birthday Reply">
-
-<button type="submit">SEND YOUR REPLY 💗</button>
+<section class="page" id="page8"><div class="panel">
+<p class="eyebrow">Your turn 💌</p><h2>What's in your heart?</h2>
+<p>Send me your reply. It will be delivered through my Formspree form.</p>
+<form action="https://formspree.io/f/xzepljrz" method="POST" class="reply">
+<label for="replyName">Your name</label><input id="replyName" name="name" value="Bavani" required>
+<label for="replyMessage">Your reply</label><textarea id="replyMessage" name="message" placeholder="Write your reply here..." required></textarea>
+<input type="hidden" name="_subject" value="Bavani's birthday surprise reply">
+<button class="gold" type="submit">SEND YOUR REPLY ♥</button>
 </form>
-
-<p>Thank you for opening every surprise!</p>
-<button class="secondary" onclick="go(1)">START AGAIN ↻</button>
-</div>
-</section>
-
-<footer>Made with love for Bavani ❤️</footer>
+<p class="hint">Thank you for opening every little surprise. Happy Birthday! 🌹</p>
+<button class="outline" data-go="1">START AGAIN ↻</button>
+</div></section>
+<footer>Made with love, roses and a little stardust for Bavani ♥</footer>
 </main>
-
-<script>
-
-// =================================
-// CUSTOM SETTINGS
-// =================================
-
-const PASSWORD = "1204";
-
-const BIRTHDAY =
-new Date("2026-12-04T00:00:00+05:30");
-
-// Change your password above.
-// Date is 4 December 2026, India time.
-
-// =================================
-// PAGE NAVIGATION
-// =================================
-
-function go(n){
- document.querySelectorAll(".page").forEach(p=>{
-  p.classList.remove("active");
- });
- document.getElementById("page"+n).classList.add("active");
-
- window.scrollTo({top:0,behavior:"smooth"});
-
- if(n===7)startTyping();
-}
-
-// =================================
-// COUNTDOWN
-// =================================
-
-let testing=false;
-
-function testMode(){
- testing=!testing;
-
- document.querySelector("#page2 .secondary").innerText=
- "TEST MODE: "+(testing?"ON":"OFF");
-
- document.getElementById("testInfo").innerText=
- testing?"Preview mode enabled!":"Real countdown mode.";
-
- document.getElementById("continueBtn").disabled=
- !(testing || Date.now()>=BIRTHDAY.getTime());
-}
-
-function updateCountdown(){
-
- let diff=Math.max(0,BIRTHDAY-Date.now());
-
- let d=Math.floor(diff/86400000);
- let h=Math.floor(diff/3600000)%24;
- let m=Math.floor(diff/60000)%60;
- let s=Math.floor(diff/1000)%60;
-
- document.getElementById("days").innerText=d;
- document.getElementById("hours").innerText=h;
- document.getElementById("mins").innerText=m;
- document.getElementById("secs").innerText=s;
-
- if(diff===0){
-  document.getElementById("status").innerText=
-  "It's Midnight! Happy Birthday! 🎉";
- }
-
- document.getElementById("continueBtn").disabled=
- !(testing || diff===0);
-}
-
-setInterval(updateCountdown,1000);
-updateCountdown();
-
-// =================================
-// PASSWORD PAGE
-// =================================
-
-let pin="";
-
-function digit(n){
- if(pin.length<4)pin+=n;
- drawPin();
-}
-
-function clearPin(){
- pin="";
- drawPin();
-}
-
-function backPin(){
- pin=pin.slice(0,-1);
- drawPin();
-}
-
-function drawPin(){
- document.querySelectorAll("#dots span").forEach((e,i)=>{
-  e.innerText=i<pin.length?"●":"○";
- });
-}
-
-function unlock(){
-
- if(pin===PASSWORD){
-  document.getElementById("error").innerText=
-  "Unlocked! Welcome 💗";
-  setTimeout(()=>go(4),400);
- }else{
-  document.getElementById("error").innerText=
-  "Wrong password! Try again 💫";
-  pin="";
-  drawPin();
- }
-}
-
-// =================================
-// 26 MESSAGE CARDS
-// =================================
-
-const messages=[
-"Your smile makes ordinary days special.",
-"You deserve all the happiness.",
-"Never forget how wonderful you are.",
-"Your kindness is magical.",
-"Keep smiling always.",
-"You make little moments unforgettable.",
-"Keep shining in your own way.",
-"You are stronger than you think.",
-"May your dreams come true.",
-"You deserve peaceful love.",
-"Your laugh is beautiful.",
-"Thank you for being you.",
-"May every day bring happiness.",
-"You are a precious person.",
-"Always believe in yourself.",
-"The world is brighter with you.",
-"Keep your heart happy.",
-"You deserve every good thing.",
-"Be wonderfully yourself.",
-"Enjoy every little adventure.",
-"May your wishes come true.",
-"You are special to me.",
-"Take care of your heart.",
-"May this year be beautiful.",
-"Shine even on cloudy days.",
-"Happy Birthday Bavani! 💗"
-];
-
-const cardArea=document.getElementById("cards");
-
-messages.forEach((msg,i)=>{
-
- const card=document.createElement("div");
- card.className="flip";
-
- card.innerHTML=`
- <div class="inner">
-  <div class="face front">
-   ${i+1} ❤️
-  </div>
-  <div class="face back">
-   ${msg}
-  </div>
- </div>`;
-
- let taps=0;
- let timer;
-
- card.addEventListener("click",()=>{
-  taps++;
-
-  if(taps===1){
-   timer=setTimeout(()=>taps=0,350);
-  }
-
-  if(taps===2){
-   clearTimeout(timer);
-   taps=0;
-   card.classList.toggle("open");
-  }
- });
-
- cardArea.appendChild(card);
-});
-
-// =================================
-// OPEN BOX
-// =================================
-
-function openBox(){
-
- document.getElementById("box").innerText="💝";
-
- document.getElementById("boxMessage").innerText=
- "The best gifts are love, memories and happiness. You deserve all of it, Bavani! 💗";
-
- document.getElementById("boxBtn").innerText="OPENED ✨";
-
- document.getElementById("boxBtn").disabled=true;
-
- setTimeout(()=>go(6),1800);
-}
-
-// =================================
-// SCRATCH CARD
-// =================================
-
-const canvas=document.getElementById("scratch");
-const ctx=canvas.getContext("2d");
-
-let drawing=false;
-let revealed=false;
-
-function setupScratch(){
-
- const r=canvas.getBoundingClientRect();
- const dpr=window.devicePixelRatio||1;
-
- canvas.width=r.width*dpr;
- canvas.height=r.height*dpr;
-
- ctx.setTransform(dpr,0,0,dpr,0,0);
-
- const grad=ctx.createLinearGradient(0,0,r.width,r.height);
-
- grad.addColorStop(0,"#f7c96e");
- grad.addColorStop(.5,"#b86bd0");
- grad.addColorStop(1,"#f17cac");
-
- ctx.fillStyle=grad;
- ctx.fillRect(0,0,r.width,r.height);
-
- ctx.fillStyle="white";
- ctx.font="bold 20px Arial";
- ctx.textAlign="center";
- ctx.fillText("✨ SCRATCH HERE ✨",r.width/2,r.height/2);
-
-}
-
-function scratch(e){
-
- if(!drawing || revealed)return;
-
- const r=canvas.getBoundingClientRect();
-
- const x=e.clientX-r.left;
- const y=e.clientY-r.top;
-
- ctx.globalCompositeOperation="destination-out";
-
- ctx.beginPath();
- ctx.arc(x,y,25,0,Math.PI*2);
- ctx.fill();
-
- // Star sparkles
- ctx.globalCompositeOperation="source-over";
-
- for(let i=0;i<4;i++){
-
-  const star=document.createElement("span");
-
-  star.innerText="✦";
-
-  star.style.cssText=`
-   position:fixed;
-   z-index:99;
-   left:${e.clientX+Math.random()*40-20}px;
-   top:${e.clientY+Math.random()*40-20}px;
-   color:#ffe58a;
-   font-size:20px;
-   pointer-events:none;
-  `;
-
-  document.body.appendChild(star);
-
-  setTimeout(()=>star.remove(),500);
- }
-
- ctx.globalCompositeOperation="destination-out";
-
- checkScratch();
-}
-
-function checkScratch(){
-
- const data=ctx.getImageData(
-  0,0,canvas.width,canvas.height
- ).data;
-
- let clear=0,total=0;
-
- for(let i=3;i<data.length;i+=4*24){
-  total++;
-  if(data[i]<30)clear++;
- }
-
- if(!revealed && clear/total>.48){
-
-  revealed=true;
-  canvas.classList.add("hidden");
-
-  document.getElementById("scratchInfo").innerText=
-  "Your surprise is revealed! 🎉";
-
-  burstStars();
- }
-}
-
-function burstStars(){
-
- for(let i=0;i<30;i++){
-
-  const s=document.createElement("div");
-  s.innerText="✨";
-
-  s.style.cssText=`
-   position:fixed;
-   z-index:100;
-   left:${Math.random()*100}vw;
-   top:${Math.random()*100}vh;
-   font-size:25px;
-   pointer-events:none;
-  `;
-
-  document.body.appendChild(s);
-
-  setTimeout(()=>s.remove(),1500);
- }
-}
-
-canvas.addEventListener("pointerdown",e=>{
- drawing=true;
- canvas.setPointerCapture(e.pointerId);
- scratch(e);
-});
-
-canvas.addEventListener("pointermove",scratch);
-
-canvas.addEventListener("pointerup",()=>{
- drawing=false;
- checkScratch();
-});
-
-canvas.addEventListener("pointercancel",()=>{
- drawing=false;
-});
-
-window.addEventListener("load",setupScratch);
-
-window.addEventListener("resize",()=>{
- if(!revealed)setupScratch();
-});
-
-// =================================
-// AUTOMATIC TYPING MESSAGE
-// =================================
-
-const finalMessage=
-`Happy Birthday, Bavani! 💖
-
-I hope this new chapter brings you peace, laughter, courage and beautiful memories.
-
-Never forget that you are special and deserve the very best.
-
-Keep smiling, keep dreaming and keep shining.
-
-May every little wish in your heart come true. ✨
-
-With lots of love. 💗`;
-
-let typingTimer;
-
-function startTyping(){
-
- clearInterval(typingTimer);
-
- const el=document.getElementById("typing");
-
- el.innerText="";
-
- let i=0;
-
- typingTimer=setInterval(()=>{
-
-  el.innerText+=finalMessage[i]||"";
-
-  i++;
-
-  if(i>=finalMessage.length){
-   clearInterval(typingTimer);
-  }
-
- },38);
-}
-
-</script>
-</body>
-  </html>
-  
+</body></html>
