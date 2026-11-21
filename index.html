@@ -4,333 +4,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday BAVANI 💖</title>
+  <meta name="theme-color" content="#090817">
+  <title>Happy Birthday Bavani 💖</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Happy Birthday BAVANI 💖">
+  <meta property="og:description" content="A birthday surprise made with love.">
+  <meta property="og:image" content="https://professional000.github.io/Wish_You_Happy_Born-Day_BAVANI/rose.jpg">
+  <meta property="og:image:alt" content="Glowing neon pink rose">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://professional000.github.io/Wish_You_Happy_Born-Day_BAVANI/rose.jpg">
 
   <link rel="stylesheet" href="style.css">
-
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-  <audio id="bgMusic" src="bg-music.mp3" loop preload="auto"></audio>
+<div class="ambient">
+  <div id="stars"></div>
+  <div id="petals"></div>
+</div>
 
-  <div class="night-sky" id="particles"></div>
-  <div class="petals" id="petals"></div>
+<audio id="bgMusic" src="bg-music.mp3" loop preload="auto"></audio>
+<button id="musicButton" class="music-button">♫</button>
 
-  <div class="music-control">
-    <button id="musicBtn">🎵 Music: OFF</button>
-  </div>
+<main class="app">
 
-  <main class="container">
+  <!-- PAGE 1 -->
+  <section class="page active" id="pageWelcome">
+    <p class="eyebrow">A LITTLE SURPRISE FOR YOU</p>
+    <img class="rose-cover" src="rose.jpg" alt="Pink Rose">
+    <h1 class="gold-title">Happy Birthday<br><span>BAVANI</span> 💖</h1>
+    <p class="subtext">A small world made specially for you…</p>
+    <button class="primary-btn" id="startButton">Open Your Surprise ✨</button>
+    <p class="tiny-note">Turn on your sound 🎶</p>
+  </section>
 
-    <div class="progress" id="progress">
-      <span class="active"></span>
-      <span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
+  <!-- PAGE 2 -->
+  <section class="page" id="pageCountdown">
+    <p class="eyebrow">THE MAGIC MOMENT IS COMING</p>
+    <h2 class="gold-title">Countdown to your day</h2>
+    <p class="subtext">December 04, 2026 · 12:00 AM (IST)</p>
+
+    <div class="countdown">
+      <div><strong id="days">00</strong><span>Days</span></div>
+      <div><strong id="hours">00</strong><span>Hours</span></div>
+      <div><strong id="minutes">00</strong><span>Minutes</span></div>
+      <div><strong id="seconds">00</strong><span>Seconds</span></div>
     </div>
 
-    <!-- PAGE 1: WELCOME -->
+    <p id="countdownMessage" class="subtext">
+      Every second brings your special day closer 💗
+    </p>
+    <p class="tiny-note">This countdown uses the real date and time.</p>
+    <button class="primary-btn hidden" id="countdownContinue">
+      Continue 💖
+    </button>
+  </section>
 
-    <section class="page active" id="page1">
+  <!-- PAGE 3 -->
+  <section class="page" id="pagePassword">
+    <p class="eyebrow">ONE LITTLE SECRET</p>
+    <h2 class="gold-title">A Secret Entry 🔐</h2>
+    <p class="subtext">Enter the special 4-digit code</p>
 
-      <div class="lantern">🏮</div>
+    <input id="passwordInput" class="password-input"
+      type="password" inputmode="numeric" maxlength="4"
+      placeholder="••••">
 
-      <div class="rose-glass">
-        <div class="glass">🌹</div>
-      </div>
+    <button class="primary-btn" id="unlockButton">Unlock ✨</button>
+    <p id="passwordError" class="error-message"></p>
+  </section>
 
-      <p class="small-text">A magical surprise awaits...</p>
+  <!-- PAGE 4 -->
+  <section class="page" id="pageMessages">
+    <p class="eyebrow">26 LITTLE REASONS TO SMILE</p>
+    <h2 class="gold-title">A to Z · For Bavani</h2>
+    <p class="subtext">Tap each letter twice to open its message.</p>
 
-      <h1>A Special Surprise For</h1>
+    <div class="progress-wrap">
+      <div id="messageProgress"></div>
+    </div>
 
-      <h2 class="name">BAVANI</h2>
+    <p id="messageCount" class="tiny-note">0 / 26 opened</p>
+    <div class="letter-grid" id="letterGrid"></div>
 
-      <div class="heart">♡ ✨ ♡</div>
+    <div id="letterMessage" class="message-box">
+      Choose a letter 💗
+    </div>
 
-      <p>
-        Some gifts are wrapped in paper.<br>
-        This one is wrapped in love...
-      </p>
+    <button class="primary-btn hidden" id="toGiftButton">
+      You opened all 26! Continue 💝
+    </button>
+  </section>
 
-      <button class="gold-btn" onclick="nextPage()">
-        OPEN YOUR GIFT 🎁
+  <!-- PAGE 5 -->
+  <section class="page" id="pageGiftBox">
+    <p class="eyebrow">A GIFT, WRAPPED WITH LOVE</p>
+    <h2 class="gold-title">Something special for you</h2>
+    <div class="gift-emoji" id="giftEmoji">🎁</div>
+    <p class="subtext">A little gift is waiting behind this box.</p>
+    <button class="primary-btn" id="openGiftButton">
+      Open the gift 🎀
+    </button>
+  </section>
+
+  <!-- PAGE 6 -->
+  <section class="page" id="pageScratch">
+    <p class="eyebrow">YOUR SECRET GIFT</p>
+    <h2 class="gold-title">Scratch to reveal 💖</h2>
+    <p class="subtext">Scratch at least 80% to reveal your photo.</p>
+
+    <div class="scratch-area">
+      <img id="giftPhoto" src="gift.jpg" alt="Birthday gift">
+      <canvas id="scratchCanvas"></canvas>
+    </div>
+
+    <p id="scratchProgress" class="tiny-note">0% revealed</p>
+
+    <a id="downloadGift"
+      class="primary-btn download-btn hidden"
+      href="gift.jpg"
+      download="Bavani-Birthday-Gift.jpg">
+      Download your photo ⬇
+    </a>
+
+    <button class="primary-btn hidden" id="toWishButton">
+      Continue 💗
+    </button>
+  </section>
+
+  <!-- PAGE 7 -->
+  <section class="page" id="pageWish">
+    <p class="eyebrow">A MESSAGE FROM MY HEART</p>
+    <h2 class="gold-title">For You, Bavani 💕</h2>
+
+    <div class="wish-card">
+      <p id="typedMessage"></p>
+      <span class="cursor">|</span>
+    </div>
+
+    <button class="primary-btn hidden" id="toReplyButton">
+      One last thing… 💌
+    </button>
+  </section>
+
+  <!-- PAGE 8 -->
+  <section class="page" id="pageReply">
+    <p class="eyebrow">YOUR TURN 💗</p>
+    <h2 class="gold-title">Send me a little reply</h2>
+    <p class="subtext">I would love to know what you think.</p>
+
+    <form id="replyForm" action="https://formspree.io/f/xzepljrz" method="POST">
+      <input type="hidden" name="_subject"
+        value="Bavani's Birthday Website Reply">
+
+      <textarea name="message" id="replyText"
+        required placeholder="Write your reply here…"></textarea>
+
+      <button class="primary-btn" type="submit">
+        Send your reply 💌
       </button>
+    </form>
 
-    </section>
+    <p id="replyStatus" class="tiny-note"></p>
+    <p class="final-line">Once again, Happy Birthday BAVANI! 💖🌹</p>
+  </section>
 
+</main>
 
-    <!-- PAGE 2: COUNTDOWN -->
-
-    <section class="page" id="page2">
-
-      <div class="moon">🌙</div>
-
-      <h1>Almost Time, Bavani 💕</h1>
-
-      <p>
-        Your birthday surprise unlocks at midnight<br>
-        on 4 December 2026.
-      </p>
-
-      <div class="countdown">
-
-        <div>
-          <strong id="days">00</strong>
-          <small>DAYS</small>
-        </div>
-
-        <div>
-          <strong id="hours">00</strong>
-          <small>HOURS</small>
-        </div>
-
-        <div>
-          <strong id="minutes">00</strong>
-          <small>MINUTES</small>
-        </div>
-
-        <div>
-          <strong id="seconds">00</strong>
-          <small>SECONDS</small>
-        </div>
-
-      </div>
-
-      <p class="count-note" id="countNote">
-        Counting down to your special moment ♡
-      </p>
-
-      <button
-        class="gold-btn"
-        id="countContinue"
-        onclick="nextPage()"
-        disabled
-      >
-        PLEASE WAIT ✨
-      </button>
-
-    </section>
-
-
-    <!-- PAGE 3: PASSWORD -->
-
-    <section class="page" id="page3">
-
-      <div class="lock">🔐</div>
-
-      <h1>One Little Secret!</h1>
-
-      <p>Only someone special knows the magic number 💗</p>
-
-      <div class="pin-display">
-        <span class="pin-dot"></span>
-        <span class="pin-dot"></span>
-        <span class="pin-dot"></span>
-        <span class="pin-dot"></span>
-      </div>
-
-      <div class="keypad">
-
-        <button onclick="addPin('1')">1</button>
-        <button onclick="addPin('2')">2</button>
-        <button onclick="addPin('3')">3</button>
-
-        <button onclick="addPin('4')">4</button>
-        <button onclick="addPin('5')">5</button>
-        <button onclick="addPin('6')">6</button>
-
-        <button onclick="addPin('7')">7</button>
-        <button onclick="addPin('8')">8</button>
-        <button onclick="addPin('9')">9</button>
-
-        <button onclick="clearPin()">C</button>
-        <button onclick="addPin('0')">0</button>
-        <button onclick="deletePin()">⌫</button>
-
-      </div>
-
-      <p id="pinMessage"></p>
-
-      <button class="gold-btn" onclick="checkPin()">
-        UNLOCK ✨
-      </button>
-
-    </section>
-
-
-    <!-- PAGE 4: 26 MESSAGES -->
-
-    <section class="page" id="page4">
-
-      <h1>26 Little Reasons To Smile 💌</h1>
-
-      <p>Double tap each letter to reveal its message.</p>
-
-      <div class="letters" id="letters"></div>
-
-      <p id="letterStatus">Opened: 0 / 26 💗</p>
-
-      <button
-        class="gold-btn"
-        id="lettersNext"
-        onclick="nextPage()"
-        disabled
-      >
-        OPEN ALL 26 MESSAGES 💌
-      </button>
-
-    </section>
-
-
-    <!-- PAGE 5: GIFT BOX -->
-
-    <section class="page" id="page5">
-
-      <h1>One More Little Thing...</h1>
-
-      <p>A special message is waiting inside!</p>
-
-      <div class="big-gift" id="bigGift" onclick="openGift()">
-        🎁
-      </div>
-
-      <button class="gold-btn" onclick="openGift()">
-        OPEN THE BOX 💝
-      </button>
-
-      <div id="giftMessage" class="hidden message-box">
-
-        <h2>For You, Bavani 💖</h2>
-
-        <p>
-          You deserve all the happiness in this world.
-          May your life always shine as beautifully
-          as the stars tonight. 🌟
-        </p>
-
-        <button class="gold-btn" onclick="nextPage()">
-          CONTINUE ✨
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- PAGE 6: SCRATCH CARD -->
-
-    <section class="page" id="page6">
-
-      <h1>Scratch To Reveal Your Gift ✨</h1>
-
-      <p>
-        Scratch with your finger.
-        Your photo appears after 80% is scratched!
-      </p>
-
-      <div class="scratch-wrap">
-
-        <img
-          id="giftPhoto"
-          src="gift.jpg"
-          alt="Bavani birthday gift"
-        >
-
-        <canvas id="scratchCanvas"></canvas>
-
-      </div>
-
-      <p id="scratchStatus">
-        Scratch to reveal your surprise 💗
-      </p>
-
-      <a
-        id="downloadGift"
-        href="gift.jpg"
-        download="Bavani-Gift.jpg"
-        class="download-btn hidden"
-      >
-        ⬇ DOWNLOAD GIFT PHOTO
-      </a>
-
-      <button
-        class="gold-btn hidden"
-        id="scratchNext"
-        onclick="nextPage()"
-      >
-        NEXT ✨
-      </button>
-
-    </section>
-
-
-    <!-- PAGE 7: TYPING MESSAGE -->
-
-    <section class="page" id="page7">
-
-      <h1>For You, Bavani 💗</h1>
-
-      <div class="letter-box">
-        <p id="typedMessage"></p>
-      </div>
-
-      <button class="gold-btn" onclick="nextPage()">
-        I HAVE SOMETHING TO SAY 💌
-      </button>
-
-    </section>
-
-
-    <!-- PAGE 8: REPLY -->
-
-    <section class="page" id="page8">
-
-      <h1>Your Turn 💌</h1>
-
-      <p>Tell me what's in your heart.</p>
-
-      <form
-        id="replyForm"
-        action="https://formspree.io/f/xzepljrz"
-        method="POST"
-      >
-
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          required
-        >
-
-        <textarea
-          name="reply"
-          placeholder="Your Reply Here..."
-          required
-        ></textarea>
-
-        <button class="gold-btn" type="submit">
-          SEND YOUR REPLY 💗
-        </button>
-
-      </form>
-
-      <p id="formStatus"></p>
-
-      <p class="ending">
-        Thank you for opening every little surprise.<br>
-        Happy Birthday, Bavani! 🌹
-      </p>
-
-      <button class="gold-btn" onclick="restart()">
-        START AGAIN ↻
-      </button>
-
-    </section>
-
-  </main>
-
-  <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
