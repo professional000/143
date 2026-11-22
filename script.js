@@ -1,12 +1,12 @@
 /* ==================================
    BAVANI BIRTHDAY WEBSITE
-   FINAL COMPLETE SCRIPT
+   FINAL CORRECTED SCRIPT
 ================================== */
 
 
 // SETTINGS
 
-const PASSWORD = "1204";
+const PASSWORD = "0412";
 
 const BIRTHDAY = new Date(
   "2026-12-04T00:00:00+05:30"
@@ -14,6 +14,7 @@ const BIRTHDAY = new Date(
 
 // true = Test website now
 // false = Birthday countdown lock
+
 const TEST_MODE = false;
 
 
@@ -115,6 +116,8 @@ async function startMusic() {
 
   } catch (error) {
 
+    musicStarted = false;
+
     musicBtn.textContent = "🎵 TAP FOR MUSIC";
 
   }
@@ -122,20 +125,28 @@ async function startMusic() {
 }
 
 
-// Browser autoplay restrictions
+// First user interaction starts music.
+// Clicking the music button itself is handled separately.
 
 document.addEventListener(
   "click",
-  function firstClick() {
+  function firstClick(event) {
 
-    if (!musicStarted) {
+    if (
+      !musicBtn.contains(event.target) &&
+      bgMusic.paused
+    ) {
+
       startMusic();
+
     }
 
   },
   { once: true }
 );
 
+
+// MUSIC ON / OFF BUTTON
 
 musicBtn.addEventListener("click", async () => {
 
@@ -152,6 +163,25 @@ musicBtn.addEventListener("click", async () => {
     musicBtn.textContent = "🎵 Music: OFF";
 
   }
+
+});
+
+
+// Keep button updated if audio stops or fails.
+
+bgMusic.addEventListener("play", () => {
+
+  musicStarted = true;
+
+  musicBtn.textContent = "🎵 Music: ON";
+
+});
+
+bgMusic.addEventListener("pause", () => {
+
+  musicStarted = false;
+
+  musicBtn.textContent = "🎵 Music: OFF";
 
 });
 
@@ -258,6 +288,8 @@ setInterval(updateCountdown, 1000);
 
 function showPage(number) {
 
+  if (number < 1 || number > 8) return;
+
   currentPage = number;
 
   pages.forEach((page, index) => {
@@ -287,11 +319,15 @@ function showPage(number) {
 
 
   if (number === 6) {
+
     setupScratch();
+
   }
 
   if (number === 7) {
+
     startTyping();
+
   }
 
 }
@@ -301,7 +337,7 @@ function showPage(number) {
 
 function nextPage() {
 
-  // Countdown lock
+  // COUNTDOWN LOCK
 
   if (currentPage === 2) {
 
@@ -321,7 +357,7 @@ function nextPage() {
   }
 
 
-  // 26 messages lock
+  // 26 MESSAGES LOCK
 
   if (currentPage === 4) {
 
@@ -347,13 +383,95 @@ function nextPage() {
 }
 
 
-// RESTART
+// ==================================
+// RESTART WEBSITE
+// ==================================
 
 function restart() {
+
+  // Reset PIN
 
   pin = "";
 
   updatePinDisplay();
+
+  document.getElementById("pinMessage").textContent = "";
+
+
+  // Reset 26 messages
+
+  openedMessages.clear();
+
+  document.querySelectorAll(".letter-card").forEach((card, index) => {
+
+    card.classList.remove("flipped");
+
+    card.textContent =
+      String.fromCharCode(65 + index);
+
+    card.style.boxShadow = "";
+
+  });
+
+  checkAllMessages();
+
+
+  // Reset gift box
+
+  document.getElementById("bigGift").textContent = "🎁";
+
+  document
+    .getElementById("giftMessage")
+    .classList.add("hidden");
+
+
+  // Reset scratch card
+
+  scratchDone = false;
+
+  drawing = false;
+
+  canvas = null;
+
+  ctx = null;
+
+  const scratchCanvas =
+    document.getElementById("scratchCanvas");
+
+  scratchCanvas.classList.remove("hidden");
+
+  scratchCanvas.style.opacity = "1";
+
+  scratchCanvas.style.transition = "";
+
+
+  document
+    .getElementById("downloadGift")
+    .classList.add("hidden");
+
+  document
+    .getElementById("scratchNext")
+    .classList.add("hidden");
+
+  document.getElementById("scratchStatus").textContent =
+    "Scratch to reveal your surprise Gift 💗";
+
+
+  // Reset typing message
+
+  typingStarted = false;
+
+  document.getElementById("typedMessage").textContent = "";
+
+
+  // Reset reply form
+
+  replyForm.reset();
+
+  document.getElementById("formStatus").textContent = "";
+
+
+  // Go back to first page
 
   showPage(1);
 
@@ -514,42 +632,29 @@ messages.forEach((message, index) => {
 
   function flip() {
 
-    const isFlipped =
-      card.classList.toggle("flipped");
+    if (openedMessages.has(index)) return;
 
+    card.classList.add("flipped");
 
-    if (isFlipped) {
+    card.textContent = message;
 
-      card.textContent = message;
+    // Count this message only once
 
-      // Count this message only once
+    openedMessages.add(index);
 
-      openedMessages.add(index);
+    card.style.boxShadow =
+      "0 0 25px #ffd18b, 0 0 35px #ff58da";
 
-      card.style.boxShadow =
-        "0 0 25px #ffd18b, 0 0 35px #ff58da";
-
-      checkAllMessages();
-
-    } else {
-
-      card.textContent = letter;
-
-    }
+    checkAllMessages();
 
   }
 
 
-  // Desktop double click
-
-  card.addEventListener("dblclick", flip);
-
-
-  // Mobile double tap
+  // DOUBLE TAP FOR BOTH MOBILE AND DESKTOP
 
   let lastTap = 0;
 
-  card.addEventListener("touchend", (event) => {
+  card.addEventListener("pointerup", (event) => {
 
     const now = Date.now();
 
@@ -645,14 +750,16 @@ function setupScratch() {
     window.devicePixelRatio || 1;
 
 
-  canvas.width = rect.width * ratio;
+  canvas.width = Math.round(rect.width * ratio);
 
-  canvas.height = rect.height * ratio;
+  canvas.height = Math.round(rect.height * ratio);
 
   ctx.scale(ratio, ratio);
 
 
   // Scratch cover
+
+  ctx.globalCompositeOperation = "source-over";
 
   ctx.fillStyle = "#b6a0b9";
 
@@ -669,6 +776,8 @@ function setupScratch() {
   ctx.font = "bold 24px Poppins";
 
   ctx.textAlign = "center";
+
+  ctx.textBaseline = "alphabetic";
 
   ctx.fillText(
     "SCRATCH HERE ✨",
@@ -724,6 +833,8 @@ function setupScratch() {
 
   canvas.addEventListener("pointerdown", e => {
 
+    if (scratchDone) return;
+
     drawing = true;
 
     canvas.setPointerCapture(e.pointerId);
@@ -749,6 +860,13 @@ function setupScratch() {
 
   });
 
+
+  canvas.addEventListener("lostpointercapture", () => {
+
+    drawing = false;
+
+  });
+
 }
 
 
@@ -757,6 +875,8 @@ function setupScratch() {
 // ==================================
 
 function checkScratch() {
+
+  if (!ctx || !canvas || scratchDone) return;
 
   const imageData = ctx.getImageData(
     0,
@@ -794,11 +914,13 @@ function checkScratch() {
     `Scratched: ${Math.floor(percentage)}% 💗`;
 
 
-  // Reveal at 80%
+  // REVEAL AT 80%
 
   if (percentage >= 80 && !scratchDone) {
 
     scratchDone = true;
+
+    drawing = false;
 
     canvas.style.transition =
       "opacity 1s";
@@ -885,7 +1007,8 @@ Keep smiling, keep dreaming and keep shining.
 
 May every little wish in your heart come true. ✨
 
-With lots of love. ❤️`;
+With lots of love. ❤️
+
 
 என் மனதில் தோன்றிய சில விஷயங்களை உன்னிடம் சொல்ல வேண்டும்... ❤️
 
@@ -920,8 +1043,8 @@ LAW OF ATTRACTION என்று சொல்வார்கள்.
 
 🌹 Once again, a very Happy Birthday to you! 🎂💖
 
-May this year be kinder, brighter, and more beautiful than all the years before. 🦋
-   
+May this year be kinder, brighter, and more beautiful than all the years before. 🦋`;
+
 
 function startTyping() {
 
@@ -1031,4 +1154,3 @@ replyForm.addEventListener("submit", async (e) => {
 updateCountdown();
 
 showPage(1);
-      
