@@ -15,7 +15,7 @@ const BIRTHDAY = new Date(
 // true = Test website now
 // false = Birthday countdown lock
 
-const TEST_MODE = true;
+const TEST_MODE = false;
 
 
 // GLOBAL VARIABLES
